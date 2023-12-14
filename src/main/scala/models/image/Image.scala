@@ -1,3 +1,5 @@
 package models.image
 
-trait Image {}
+import models.pixel.Pixel
+
+trait Image[T <: Pixel] {}
