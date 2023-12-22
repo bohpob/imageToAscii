@@ -27,4 +27,16 @@ class ASCIIImage(pixelGrid: PixelGrid[ASCIIPixel])
     }
     new ASCIIImage(PixelGrid(newMatrix))
   }
+
+  override def toString: String = {
+    var ascii_string = ""
+
+    for (y <- getPixelGrid.toArray.indices) {
+      for (x <- getPixelGrid.toArray(y).indices)
+        ascii_string += getPixel(y, x)
+      ascii_string += "\n"
+    }
+
+    ascii_string
+  }
 }
