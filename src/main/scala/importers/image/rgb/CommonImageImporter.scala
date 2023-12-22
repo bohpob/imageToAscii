@@ -11,26 +11,34 @@ import java.io.File
 /**
  * RGBImageImporterFromPath specializes in importing RGB images from a specified file path.
  *
- * @param filepath The path to the image file to be imported.
+ * @param file The file to be imported.
  * */
-class RGBImageImporterFromFile(val filepath: String) extends RGBImageImporter {
+class CommonImageImporter(val file: File, validExtensions: Seq[String])
+    extends RGBImageImporter {
+  if (!validExtensions.exists(file.getName.endsWith))
+    throw new Exception(
+      s"Invalid file format. Expected one of: ${validExtensions.mkString(", ")}")
 
   /**
    * Imports RGB image data from the specified file path.
    *
    * @return The RGBImage object containing RGBPixel data representing the imported image.
    * */
-  override def importData(): RGBImage = {
-    if (filepath.isBlank || filepath.isEmpty)
-      throw new Exception("File path is empty.")
-    val image = readFile(new File(filepath))
+  override def importData(): RGBImage =
+    try {
+      val image = readFile(file)
 
-    val pixels = readPixels(image.get)
+      if (image.isEmpty)
+        throw new Exception("Empty image")
 
-    val pixelGrid = new PixelGrid[RGBPixel](pixels)
+      val pixels = readPixels(image.get)
 
-    new RGBImage(pixelGrid)
-  }
+      val pixelGrid = new PixelGrid[RGBPixel](pixels)
+
+      new RGBImage(pixelGrid)
+    } catch {
+      case e: Exception => throw new Exception("Couldn't import")
+    }
 
   /**
    * Reads RGB pixels from a BufferedImage.

@@ -3,7 +3,7 @@ package importers.image
 import models.image.Image
 
 import java.awt.image.BufferedImage
-import java.io.File
+import java.io.{File, IOException}
 import javax.imageio.ImageIO
 
 /**
@@ -20,14 +20,18 @@ trait ImageImporterFromFile[T <: Image[_]] extends ImageImporter[T] {
    */
   protected def readFile(file: File): Option[BufferedImage] =
     try {
-      val image = Some(ImageIO.read(file))
+      val image = ImageIO.read(file)
 
-      if (image.isEmpty)
+      if (image == null)
         throw new Exception("Failed to import image data.")
 
-      image
+      Some(image)
     } catch {
+      case ioe: IOException =>
+        throw new Exception(s"Failed to read image from file: ${file.getPath}", ioe)
+      case iae: IllegalArgumentException =>
+        throw new Exception("Failed to import image data.", iae)
       case e: Exception =>
-        throw new Exception(s"Failed to read image from file: ${file.getPath}")
+        throw new Exception("Couldn't import", e)
     }
 }
