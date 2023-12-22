@@ -1,11 +1,13 @@
 package importers.image.rgb.png
 
-import importers.image.rgb.RGBImageImporterFromFile
+import importers.image.rgb.CommonImageImporter
+
+import java.io.File
 
 /**
  * A class representing an importer for PNG images. Extends RGBImageImporterFromFile.
  *
- * @param filepath The path to the PNG file to be imported.
+ * @param file The PNG file to be imported.
  */
-class PNGImageImporter(override val filepath: String)
-    extends RGBImageImporterFromFile(filepath) {}
+class PNGImageImporter(override val file: File)
+    extends CommonImageImporter(file, Seq(".png")) {}
