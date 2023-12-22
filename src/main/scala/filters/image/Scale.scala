@@ -39,5 +39,9 @@ class Scale(factor: Double) extends GrayscaleImageFilter {
     result
   }
 
+  /**
+   * Get Scale
+   * @return Scale
+   */
   def getScale: Double = factor
 }
