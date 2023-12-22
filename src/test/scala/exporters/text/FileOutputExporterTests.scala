@@ -30,4 +30,17 @@ class FileOutputExporterTests extends FunSuite {
     }
     file.deleteOnExit()
   }
+
+  test("FileOutputExporter Double Close Stream") {
+    val file = new File("src/test/scala/exporters/image/res/test4.txt")
+    val exporter = new FileOutputExporter(file)
+    exporter.exportData("test")
+    exporter.close()
+
+    intercept[Exception] {
+      exporter.exportData("test")
+    }
+
+    file.deleteOnExit()
+  }
 }

@@ -2,11 +2,11 @@ package exporters.text
 
 import org.scalatest.FunSuite
 
-import java.io.{File, FileOutputStream}
+import java.io.{ByteArrayOutputStream, File, FileOutputStream}
 import scala.io.Source
 
 class StreamTextExporterTests extends FunSuite {
-  test("testExport") {
+  test("Export to file") {
     val file = new File("src/test/scala/exporters/image/res/test4.txt")
     val exporter = new StreamTextExporter(new FileOutputStream(file))
     exporter.exportData("test")
@@ -31,5 +31,25 @@ class StreamTextExporterTests extends FunSuite {
       exporter.exportData("test")
     }
     file.deleteOnExit()
+  }
+
+  test("Export empty text to console") {
+    val stream = new ByteArrayOutputStream()
+    val exporter = new StreamTextExporter(stream)
+
+    exporter.exportData("")
+
+    assert(stream.toString == "")
+
+  }
+
+  test("Export text to console") {
+    val stream = new ByteArrayOutputStream()
+    val exporter = new StreamTextExporter(stream)
+
+    exporter.exportData("text")
+
+    assert(stream.toString == "text")
+
   }
 }
