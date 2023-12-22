@@ -20,5 +20,5 @@ class ASCIIImageExporter(textExporter: TextExporter)
    * @param item The ASCIIImage data to be exported.
    */
   override def exportData(item: ASCIIImage): Unit =
-    textExporter.exportData(item.getPixelGrid.toString)
+    textExporter.exportData(item.toString)
 }
