@@ -28,6 +28,14 @@ class ASCIIImage(pixelGrid: PixelGrid[ASCIIPixel])
     new ASCIIImage(PixelGrid(newMatrix))
   }
 
+  /**
+   * Converts the ASCIIImage to a string representation.
+   *
+   * This method iterates through each row and column of the pixel grid, appending the characters of each ASCII pixel to the resulting string.
+   * Each row is separated by a newline character.
+   *
+   * @return A string representation of the ASCIIImage.
+   */
   override def toString: String = {
     var ascii_string = ""
 

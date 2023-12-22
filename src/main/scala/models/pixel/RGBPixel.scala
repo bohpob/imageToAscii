@@ -16,4 +16,11 @@ case class RGBPixel(red: Int, green: Int, blue: Int) extends Pixel {
    */
   override def valid: Boolean =
     red >= 0 && red <= 255 && green >= 0 && green <= 255 && blue >= 0 && blue <= 255
+
+  /**
+   * Returns the RGB color values of the pixel as a tuple.
+   *
+   * @return A tuple containing the red, green, and blue color components.
+   */
+  def getValue: (Int, Int, Int) = (red, green, blue)
 }

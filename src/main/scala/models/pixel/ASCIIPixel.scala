@@ -16,5 +16,10 @@ case class ASCIIPixel(char: Char) extends Pixel {
    */
   override def valid: Boolean = char >= 32 && char <= 126
 
+  /**
+   * Returns a string representation of the ASCII pixel.
+   *
+   * @return The string representation of the ASCII pixel.
+   */
   override def toString: String = char.toString
 }

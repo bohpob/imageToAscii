@@ -15,7 +15,8 @@ case class PixelGrid[T <: Pixel](grid: Array[Array[T]]) extends Grid[T] {
    *
    * @return The number of rows in the 2D array.
    */
-  override def getHeight: Int = grid.length
+  override def getHeight: Int =
+    grid.length
 
   /**
    * Gets the width of the pixel grid.
@@ -24,10 +25,7 @@ case class PixelGrid[T <: Pixel](grid: Array[Array[T]]) extends Grid[T] {
    * @return The number of columns in the first row of the 2D array.
    */
   override def getWidth: Int =
-    if (getHeight == 0)
-      throw new Exception("Cannot get width of an empty grid.")
-    else
-      grid.head.length
+    if (grid.length == 0) 0 else grid.head.length
 
   /**
    * Gets the pixel at the specified coordinates.
